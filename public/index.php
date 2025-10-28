@@ -19,7 +19,7 @@ $segments = explode('/', $request_uri);
 $controller_name = 'HomeController'; // Default
 if (!empty($segments[0])) {
     $segment_0 = strtolower($segments[0]);
-    if ($segment_0 === 'login' || $segment_0 === 'register') {
+    if ($segment_0 === 'login' || $segment_0 === 'register' || $segment_0 === 'logout') {
         $controller_name = 'AuthController';
     } else {
         $controller_name = ucfirst($segment_0) . 'Controller';
@@ -28,7 +28,7 @@ if (!empty($segments[0])) {
 $action_name = 'index'; // Default action
 if (!empty($segments[0])) {
     $segment_0_lower = strtolower($segments[0]);
-    if ($segment_0_lower === 'login' || $segment_0_lower === 'register') {
+    if ($segment_0_lower === 'login' || $segment_0_lower === 'register' || $segment_0_lower === 'logout') {
         $action_name = $segment_0_lower; // Use 'login' or 'register' as action
     } elseif (!empty($segments[1])) {
         $action_name = $segments[1]; // Use segment 1 as action if available

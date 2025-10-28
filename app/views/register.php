@@ -12,8 +12,12 @@
             <a href="/Program/Step/onlineshop/public/">Home</a>
             <a href="/Program/Step/onlineshop/public/products">Products</a>
             <a href="/Program/Step/onlineshop/public/cart">Cart</a>
-            <a href="/Program/Step/onlineshop/public/login">Login</a>
-            <a href="/Program/Step/onlineshop/public/register">Register</a>
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <a href="/Program/Step/onlineshop/public/logout">Logout</a>
+            <?php else: ?>
+                <a href="/Program/Step/onlineshop/public/login">Login</a>
+                <a href="/Program/Step/onlineshop/public/register">Register</a>
+            <?php endif; ?>
         </nav>
     </header>
     <main>
