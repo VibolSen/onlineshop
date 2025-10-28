@@ -17,6 +17,7 @@ class AuthController extends Controller {
             $password = $_POST['password'];
 
             if ($this->userModel->create($username, $email, $password)) {
+                // After register, redirect to login
                 $this->redirect('login');
             } else {
                 $this->view('register', ['error' => 'Registration failed.']);
@@ -38,7 +39,15 @@ class AuthController extends Controller {
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['role'] = $user['role'];
-                $this->redirect(''); // Redirect to homepage or dashboard
+
+                // ✅ Redirect based on role
+                if ($user['role'] === 'admin') {
+                    // Redirect to Admin Dashboard
+                    $this->redirect('admin');
+                } else {
+                    // Redirect normal users to homepage
+                    $this->redirect('');
+                }
             } else {
                 $this->view('login', ['error' => 'Invalid username or password.']);
             }
@@ -54,5 +63,4 @@ class AuthController extends Controller {
         $this->redirect('login');
     }
 }
-
 ?>
