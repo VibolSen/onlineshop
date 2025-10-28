@@ -32,6 +32,23 @@ class User {
         return $stmt->execute();
     }
 
+    public function countAllUsers() {
+        $result = $this->conn->query("SELECT COUNT(*) as count FROM users");
+        return $result->fetch_assoc()['count'];
+    }
+
+    public function getAllUsers() {
+        $sql = "SELECT * FROM users";
+        $result = $this->conn->query($sql);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function updateUserRole($id, $role) {
+        $stmt = $this->conn->prepare("UPDATE users SET role = ? WHERE id = ?");
+        $stmt->bind_param("si", $role, $id);
+        return $stmt->execute();
+    }
+
     public function verifyPassword($password, $hashed_password) {
         return password_verify($password, $hashed_password);
     }

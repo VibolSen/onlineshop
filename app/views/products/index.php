@@ -13,6 +13,9 @@
             <a href="/Program/Step/onlineshop/public/products">Products</a>
             <a href="/Program/Step/onlineshop/public/cart">Cart</a>
             <?php if (isset($_SESSION['user_id'])): ?>
+                <?php if ($_SESSION['role'] === 'admin'): ?>
+                    <a href="/Program/Step/onlineshop/public/admin">Admin Dashboard</a>
+                <?php endif; ?>
                 <a href="/Program/Step/onlineshop/public/logout">Logout</a>
             <?php else: ?>
                 <a href="/Program/Step/onlineshop/public/login">Login</a>

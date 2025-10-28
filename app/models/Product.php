@@ -31,6 +31,29 @@ class Product {
         return $result->fetch_assoc();
     }
 
+    public function createProduct($name, $description, $price, $stock, $categoryId, $image = null) {
+        $stmt = $this->conn->prepare("INSERT INTO products (name, description, price, stock, category_id, image) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssdiis", $name, $description, $price, $stock, $categoryId, $image);
+        return $stmt->execute();
+    }
+
+    public function updateProduct($id, $name, $description, $price, $stock, $categoryId, $image = null) {
+        if ($image) {
+            $stmt = $this->conn->prepare("UPDATE products SET name = ?, description = ?, price = ?, stock = ?, category_id = ?, image = ? WHERE id = ?");
+            $stmt->bind_param("ssdiisi", $name, $description, $price, $stock, $categoryId, $image, $id);
+        } else {
+            $stmt = $this->conn->prepare("UPDATE products SET name = ?, description = ?, price = ?, stock = ?, category_id = ? WHERE id = ?");
+            $stmt->bind_param("ssdiis", $name, $description, $price, $stock, $categoryId, $id);
+        }
+        return $stmt->execute();
+    }
+
+    public function deleteProduct($id) {
+        $stmt = $this->conn->prepare("DELETE FROM products WHERE id = ?");
+        $stmt->bind_param("i", $id);
+        return $stmt->execute();
+    }
+
     public function __destruct() {
         $this->conn->close();
     }
