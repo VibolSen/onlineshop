@@ -1,29 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $title; ?></title>
-    <link rel="stylesheet" href="/Program/Step/onlineshop/assets/css/style.css">
-</head>
-<body>
-    <header>
-        <nav>
-            <a href="/Program/Step/onlineshop/public/">Home</a>
-            <a href="/Program/Step/onlineshop/public/products">Products</a>
-            <a href="/Program/Step/onlineshop/public/cart">Cart</a>
-            <?php if (isset($_SESSION['user_id'])): ?>
-                <?php if ($_SESSION['role'] === 'admin'): ?>
-                    <a href="/Program/Step/onlineshop/public/admin">Admin Dashboard</a>
-                <?php endif; ?>
-                <a href="/Program/Step/onlineshop/public/logout">Logout</a>
-            <?php else: ?>
-                <a href="/Program/Step/onlineshop/public/login">Login</a>
-                <a href="/Program/Step/onlineshop/public/register">Register</a>
-            <?php endif; ?>
-        </nav>
-    </header>
-    <main>
+<?php require __DIR__ . '/../partials/header.php'; ?>
+<main>
         <h1><?php echo $title; ?></h1>
         <div class="product-list">
             <?php if (!empty($products)): ?>
@@ -36,7 +12,17 @@
                             <img src="/Program/Step/onlineshop/assets/images/<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>" width="100">
                         <?php endif; ?>
                         <p><?php echo substr($product['description'], 0, 100); ?>...</p>
-                        <button>Add to Cart</button>
+                        <?php if ($product['stock'] > 0): ?>
+                            <p>Stock: <?php echo $product['stock']; ?></p>
+                            <form action="/Program/Step/onlineshop/public/cart/add" method="POST">
+                                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                <input type="number" name="quantity" value="1" min="1" max="<?php echo $product['stock']; ?>" style="width: 50px;">
+                                <button type="submit">Add to Cart</button>
+                            </form>
+                        <?php else: ?>
+                            <p style="color: red;">Out of Stock</p>
+                            <button type="button" disabled>Add to Cart</button>
+                        <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
@@ -44,8 +30,4 @@
             <?php endif; ?>
         </div>
     </main>
-    <footer>
-        <p>&copy; <?php echo date('Y'); ?> Online Shop</p>
-    </footer>
-</body>
-</html>
+<?php require __DIR__ . '/../partials/footer.php'; ?>

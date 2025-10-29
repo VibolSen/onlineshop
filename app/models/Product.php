@@ -54,6 +54,21 @@ class Product {
         return $stmt->execute();
     }
 
+
+    public function updateProductStock($productId, $quantityChange) {
+        $stmt = $this->conn->prepare("UPDATE products SET stock = stock + ? WHERE id = ?");
+        if (!$stmt) {
+            error_log("Product stock update prepare failed: " . $this->conn->error);
+            return false;
+        }
+        $stmt->bind_param("ii", $quantityChange, $productId);
+        if (!$stmt->execute()) {
+            error_log("Product stock update execute failed: " . $stmt->error);
+            return false;
+        }
+        return true;
+    }
+
     public function __destruct() {
         $this->conn->close();
     }

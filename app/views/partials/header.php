@@ -148,6 +148,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <?php if ($_SESSION['role'] === 'admin'): ?>
                         <a href="/Program/Step/onlineshop/public/admin">Admin Dashboard</a>
                     <?php endif; ?>
+                    <a href="/Program/Step/onlineshop/public/profile">Profile</a>
                     <a href="/Program/Step/onlineshop/public/logout">Logout</a>
                 <?php else: ?>
                     <a href="/Program/Step/onlineshop/public/login">Login</a>

@@ -8,7 +8,7 @@
         <div class="product-footer">
             <span class="price">$<?php echo htmlspecialchars(number_format($product['price'], 2)); ?></span>
             <!-- Only this link is clickable -->
-            <a class="view-details" href="/Program/Step/onlineshop/app/views/product_detail.php?id=<?php echo $product['id']; ?>">View Details</a>
+            <a class="view-details" href="/Program/Step/onlineshop/public/product/show/<?php echo $product['id']; ?>">View Details</a>
         </div>
     </div>
 </div>

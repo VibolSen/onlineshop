@@ -33,8 +33,17 @@
                 <p><strong>Category:</strong> <?php echo $product['category_name']; ?></p>
                 <p><strong>Price:</strong> $<?php echo number_format($product['price'], 2); ?></p>
                 <p><strong>Description:</strong> <?php echo $product['description']; ?></p>
-                <p><strong>Stock:</strong> <?php echo $product['stock']; ?></p>
-                <button>Add to Cart</button>
+                <?php if ($product['stock'] > 0): ?>
+                    <p><strong>Stock:</strong> <?php echo $product['stock']; ?></p>
+                    <form action="/Program/Step/onlineshop/public/cart/add" method="POST">
+                        <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                        <input type="number" name="quantity" value="1" min="1" max="<?php echo $product['stock']; ?>">
+                        <button type="submit">Add to Cart</button>
+                    </form>
+                <?php else: ?>
+                    <p style="color: red;"><strong>Out of Stock</strong></p>
+                    <button type="button" disabled>Add to Cart</button>
+                <?php endif; ?>
             </div>
         <?php else: ?>
             <p>Product not found.</p>
