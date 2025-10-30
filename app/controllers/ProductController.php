@@ -30,6 +30,12 @@ class ProductController extends Controller {
             echo "404 Product Not Found";
         }
     }
+
+    public function search() {
+        $searchTerm = $_GET['query'] ?? '';
+        $products = $this->productModel->searchProducts($searchTerm);
+        $this->view('products/index', ['products' => $products, 'title' => 'Search Results for "' . htmlspecialchars($searchTerm) . '"']);
+    }
 }
 
 ?>

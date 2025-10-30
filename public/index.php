@@ -102,8 +102,10 @@ if (file_exists($controller_file)) {
     if (method_exists($controller, $action_name)) {
         call_user_func_array([$controller, $action_name], $params);
     } else {
-        // Handle 404 - Action not found
-        echo "404 Not Found: Action " . $action_name . " not found in " . $controller_name;
+        // If no route matched, show a 404 page
+        http_response_code(404);
+        require __DIR__ . '/../app/views/404.php';
+        exit();
     }
 } else {
     // Handle 404 - Controller not found

@@ -4,95 +4,49 @@ $bannerTitle = $bannerTitle ?? "Welcome to OnlineShop!";
 $bannerSubtitle = $bannerSubtitle ?? "Quality products delivered to your doorstep";
 $bannerButtonText = $bannerButtonText ?? "Shop Now";
 $bannerButtonLink = $bannerButtonLink ?? "/Program/Step/onlineshop/public/products";
+$bannerStyle = $bannerStyle ?? "gradient"; // gradient, minimal, modern, elegant
+$bannerAnimation = $bannerAnimation ?? true;
 ?>
 
-<style>
-/* Option 2: Vibrant & Gradient-Powered */
-.banner {
-    position: relative; /* Needed for positioning the shapes */
-    padding: 60px 40px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: #fff;
-    border-radius: 15px;
-    margin-bottom: 40px;
-    text-align: center;
-    overflow: hidden;
-    box-sizing: border-box;
-}
-
-.banner h1 {
-    font-size: 3rem;
-    font-weight: 700;
-    margin: 0 0 10px;
-    position: relative;
-    z-index: 2;
-}
-
-.banner p {
-    font-size: 1.25rem;
-    margin: 0 0 25px;
-    font-weight: 400;
-    opacity: 0.9;
-    position: relative;
-    z-index: 2;
-}
-
-.banner a {
-    display: inline-block;
-    padding: 12px 30px;
-    background-color: #ffffff;
-    color: #667eea;
-    text-decoration: none;
-    font-weight: 700;
-    border-radius: 8px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    position: relative;
-    z-index: 2;
-}
-
-.banner a:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-}
-
-/* Animated shapes in the background */
-.banner-shapes {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: 1;
-}
-.banner-shapes::before, .banner-shapes::after {
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    animation: float 10s infinite ease-in-out;
-}
-.banner-shapes::before {
-    width: 200px; height: 200px;
-    bottom: -50px; left: -50px;
-}
-.banner-shapes::after {
-    width: 150px; height: 150px;
-    top: -40px; right: -40px;
-    animation-delay: 2s; /* Start at a different time */
-}
-
-@keyframes float {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
-    100% { transform: translateY(0); }
-}
-</style>
-
-
-
-<div class="banner">
-    <h1><?php echo htmlspecialchars($bannerTitle); ?></h1>
-    <p><?php echo htmlspecialchars($bannerSubtitle); ?></p>
-    <a href="<?php echo htmlspecialchars($bannerButtonLink); ?>">
-        <?php echo htmlspecialchars($bannerButtonText); ?>
-    </a>
+<div class="banner banner-<?php echo htmlspecialchars($bannerStyle); ?>" 
+     data-animate="<?php echo $bannerAnimation ? 'true' : 'false'; ?>">
+    
+    <!-- Decorative Background Elements -->
+    <div class="banner-bg-elements">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+        <?php if ($bannerStyle === 'elegant'): ?>
+            <div class="floating-icon">
+                <i class="fas fa-star"></i>
+            </div>
+            <div class="floating-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+        <?php endif; ?>
+    </div>
+    
+    <!-- Content -->
+    <div class="banner-content">
+        <h1 class="banner-title"><?php echo htmlspecialchars($bannerTitle); ?></h1>
+        <p class="banner-subtitle"><?php echo htmlspecialchars($bannerSubtitle); ?></p>
+        <div class="banner-actions">
+            <a href="<?php echo htmlspecialchars($bannerButtonLink); ?>" class="banner-btn primary">
+                <?php echo htmlspecialchars($bannerButtonText); ?>
+            </a>
+            <?php if ($bannerStyle === 'modern'): ?>
+                <a href="/Program/Step/onlineshop/public/about" class="banner-btn secondary">
+                    Learn More
+                </a>
+            <?php endif; ?>
+        </div>
+    </div>
+    
+    <!-- Optional Badge -->
+    <?php if ($bannerStyle === 'minimal'): ?>
+        <div class="banner-badge">
+            <span>New Arrivals</span>
+        </div>
+    <?php endif; ?>
 </div>

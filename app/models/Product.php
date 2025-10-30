@@ -69,6 +69,15 @@ class Product {
         return true;
     }
 
+    public function searchProducts($searchTerm) {
+        $searchTerm = '%' . $searchTerm . '%';
+        $stmt = $this->conn->prepare("SELECT p.*, c.name as category_name FROM products p JOIN categories c ON p.category_id = c.id WHERE p.name LIKE ? OR p.description LIKE ?");
+        $stmt->bind_param("ss", $searchTerm, $searchTerm);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function __destruct() {
         $this->conn->close();
     }
