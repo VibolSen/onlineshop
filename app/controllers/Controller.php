@@ -13,7 +13,8 @@ class Controller {
     }
 
     protected function redirect($path) {
-        header("Location: /Program/Step/onlineshop/public/" . $path);
+        $baseUrl = '/onlineshop/'; // Assuming the application is in a subdirectory named 'onlineshop'
+        header("Location: " . $baseUrl . $path);
         exit();
     }
 }

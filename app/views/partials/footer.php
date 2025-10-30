@@ -1,5 +1,5 @@
-<footer>
-        <p>&copy; <?php echo date('Y'); ?> Online Shop. All Rights Reserved.</p>
+    <footer>
+        <p>&copy; <?php echo date('Y'); ?> Online Shop</p>
     </footer>
 </body>
 </html>
