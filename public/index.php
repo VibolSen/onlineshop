@@ -9,8 +9,7 @@ require_once __DIR__ . '/../app/controllers/Controller.php';
 $request_uri = trim($_SERVER['REQUEST_URI'], '/');
 
 // Remove the base path from the request URI
-$base_path = 'Program/Step/onlineshop/public';
-if (strpos($request_uri, $base_path) === 0) {
+    $base_path = 'onlineshop/public';if (strpos($request_uri, $base_path) === 0) {
     $request_uri = substr($request_uri, strlen($base_path));
 }
 
