@@ -13,8 +13,10 @@ class Controller {
     }
 
     protected function redirect($path) {
-        $baseUrl = '/onlineshop/'; // Assuming the application is in a subdirectory named 'onlineshop'
-        header("Location: " . $baseUrl . $path);
+        $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+        $host = $_SERVER['HTTP_HOST'];
+        $baseUrl = '/onlineshop/public/';
+        header("Location: " . $protocol . "://" . $host . $baseUrl . $path);
         exit();
     }
 }
